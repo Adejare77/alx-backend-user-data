@@ -36,14 +36,14 @@ class RedactingFormatter(logging.Formatter):
 
     def format(self, record: logging.LogRecord) -> str:
         """ returns the log message obfuscated """
-        # message = super(RedactingFormatter, self).format(record)
-        message = super().format(record)  # call Parent class's format Method
+        # message = super().format(record)  # call Parent class's format Method
+        message = super(RedactingFormatter, self).format(record)
         message = filter_datum(self.fields, self.REDACTION, message,
                                self.SEPARATOR)
         return message
 
 
-def get_logger(self) -> logging.Logger:
+def get_logger() -> logging.Logger:
     """ returns logging.Logger object """
     # create a logger instance
     logger = logging.getLogger("user_data")
