@@ -2,7 +2,7 @@
 """Regex-ing"""
 
 import re
-from typing import List
+from typing import List, Tuple, Dict
 import logging
 
 
@@ -23,7 +23,7 @@ class RedactingFormatter(logging.Formatter):
     FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
     SEPARATOR = ";"
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args: Tuple, **kwargs: Dict[str, str]) -> None:
         # super(Child, self).__init__(self.FORMAT)
         super(RedactingFormatter, self).__init__(self.FORMAT)
         # super().__init__(self.FORMAT)
