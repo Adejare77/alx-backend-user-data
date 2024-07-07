@@ -31,7 +31,7 @@ class RedactingFormatter(logging.Formatter):
     FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
     SEPARATOR = ";"
 
-    def __init__(self, fields: List[str]):
+    def __init__(self, fields: List[str]) -> None:
         """Initialize the parent class with the format and
         fields to be redacted"""
         super(RedactingFormatter, self).__init__(self.FORMAT)
