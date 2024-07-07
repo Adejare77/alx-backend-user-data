@@ -5,6 +5,9 @@ import re
 import logging
 
 
+PII_FIELDS = ('name', 'email', 'phone', 'ssn', 'password')
+
+
 def filter_datum(fields: List[str], redaction: str,
                  message: str, separator: str) -> str:
     """returns the log message obfuscated
@@ -53,3 +56,22 @@ class RedactingFormatter(logging.Formatter):
                                       formatted_msg, self.SEPARATOR)
 
         return obfuscated_msg
+
+
+def get_logger() -> logging.Logger:
+    """returns a logging.Logger object
+    """
+    # Create a logger instance named 'user_data'
+    logger = logging.getLogger("user_data")
+    logger.setLevel(logging.INFO)
+    logger.propagate = False  # To not propagate message to other logs
+
+    # Create a handler, that is, Destination to send the log records
+    # (file or console)
+    handler = logging.StreamHandler()  # for console
+    handler.setFormatter(RedactingFormatter(PII_FIELDS))
+
+    # Anchor handler to the instance `logger`
+    logger.addHandler(handler)
+
+    return logger
