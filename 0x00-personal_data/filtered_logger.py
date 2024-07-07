@@ -94,3 +94,28 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
                                    passwd=password, database=db)
 
     return conn
+
+
+def main():
+    """Obtain a database connection using get_db() and retrieve all
+    rows in the users table and display each row under a filtered format
+    """
+    # since my_logger handles by sending it to the Stream, we don't have to
+    # print. This is automatically done once my_logger.info() is called
+    my_logger = get_logger()
+    db = get_db()
+    # The dictionary=True attaches each row to their column name
+    cursor = db.cursor(dictionary=True)
+    cursor.execute('SELECT * FROM users;')
+    for row in cursor:
+        # convert row to string e.g "name=Bob;email=bob@dylan.com;
+        msg = ";".join([f'{key}={value}' for key, value in row.items()])
+        # my_logger sets Formatter to RedactedFormatter, thus automatically
+        # call its format() method
+        my_logger.info(msg)
+    cursor.close()
+    db.close()
+
+
+if __name__ == '__main__':
+    main()
