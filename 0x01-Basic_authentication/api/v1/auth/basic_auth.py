@@ -34,7 +34,8 @@ class BasicAuth(Auth):
         """ Decode value of Base64 string
 
         Args:
-            base64_authorization_header (str): _description_
+            base64_authorization_header (str): value extracted by
+            extract_base_64_authorization_header
 
         Returns:
             str: returns decoded value of Base64 string as UTF8 string
@@ -84,3 +85,32 @@ class BasicAuth(Auth):
         if (cls_obj and cls_obj[0].is_valid_password(user_pwd)):
             return cls_obj[0]
         return None
+
+    def current_user(self, request=None) -> TypeVar('User'):
+        """ overloads Auth and retrieves the User instance """
+        # check if request is none or Authorization head is not present
+        if not (request and request.headers.get('Authorization')):
+            return None
+        # extract Authorization filed and confirm it starts with Basic
+        authorization_header = request.headers.get('Authorization')
+        base64_authorization_header = self.extract_base64_authorization_header(
+            authorization_header)
+        if not (base64_authorization_header):
+            return None
+        # Decode authorization value and ensures it's not none
+        decode_base64_authorization_header = \
+            self.decode_base64_authorization_header(
+                base64_authorization_header)
+        if not decode_base64_authorization_header:
+            return None
+        # extracts users credentials for email and password authentication
+        users_credentials = self.extract_user_credentials(
+            decode_base64_authorization_header)
+        if not users_credentials:
+            return None
+        user_email, user_pwd = users_credentials
+        # confirm credentials are present in our DB
+        user_object = self.user_object_from_credentials(user_email, user_pwd)
+        if not user_object:
+            return None
+        return user_object
