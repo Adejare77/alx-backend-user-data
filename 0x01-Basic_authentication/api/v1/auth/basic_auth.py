@@ -3,7 +3,7 @@
 
 import base64
 import re
-from typing import Tuple, TypeVar
+from typing import TypeVar
 from api.v1.auth.auth import Auth
 from models.user import User
 
@@ -77,7 +77,7 @@ class BasicAuth(Auth):
         if not (user_email and user_pwd and type(user_email) is str
                 and type(user_pwd) is str):
             return None
-        inst_obj = User().search(email=user_email)
-        if not inst_obj or inst_obj.password != user_pwd:
+        cls_obj = User.search(email=user_email)
+        if not cls_obj or cls_obj.password != user_pwd:
             return None
-        return inst_obj
+        return cls_obj
