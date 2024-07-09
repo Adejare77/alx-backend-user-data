@@ -24,7 +24,7 @@ class Auth:
         return False
 
     def authorization_header(self, request=None) -> str:
-        """returns None
+        """ Request Validation
 
         Args:
             request (_type_, optional): Flask request object.
@@ -33,7 +33,7 @@ class Auth:
         Returns:
             str: None
         """
-        if not request or not request.headers.get('Authorization'):
+        if not (request and request.headers.get('Authorization')):
             return None
         return request.headers.get('Authorization')
 
