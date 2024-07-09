@@ -63,8 +63,11 @@ class BasicAuth(Auth):
                 type(decoded_base64_authorization_header) is str and
                 ":" in decoded_base64_authorization_header):
             return (None, None)
-        email = decoded_base64_authorization_header.split(":")[0]
-        password = decoded_base64_authorization_header.split(":")[1]
+        # email = decoded_base64_authorization_header.split(":")[0]
+        # password = decoded_base64_authorization_header.split(":")[1]
+        first_colon_index = decoded_base64_authorization_header.find(":")
+        email = decoded_base64_authorization_header[:first_colon_index]
+        password = decoded_base64_authorization_header[first_colon_index + 1:]
         return (email, password)
 
     def user_object_from_credentials(self, user_email: str,
