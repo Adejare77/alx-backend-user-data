@@ -23,7 +23,7 @@ class BasicAuth(Auth):
         """
         if not (authorization_header and type(authorization_header) is str and
                 re.match(r'Basic\s', authorization_header)):
-            return 'None'
+            return None
         auth_value = re.search(r'(?<=Basic\s).*',
                                authorization_header).group()
         return auth_value
