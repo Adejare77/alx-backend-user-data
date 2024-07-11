@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-
+"""
+Route module for the API
+"""
 from os import getenv
 from api.v1.views import app_views
 from flask import Flask, jsonify, abort, request
@@ -21,8 +23,6 @@ if os.getenv('AUTH_TYPE'):
     elif os.getenv('AUTH_TYPE') == 'session_auth':
         from api.v1.auth.session_auth import SessionAuth
         auth = SessionAuth()
-
-
 @app.before_request
 def before_request():
     """Filtering each request based on authentication:
