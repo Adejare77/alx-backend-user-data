@@ -61,7 +61,8 @@ class Auth:
         """ returns a cookie value from a request
 
         Args:
-            request (request, optional): Flask request object. Defaults to None.
+            request (request, optional): Flask request object.
+            Defaults to None.
         """
         if not request:
             return None
