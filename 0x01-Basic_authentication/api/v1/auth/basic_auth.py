@@ -82,7 +82,10 @@ class BasicAuth(Auth):
                 and type(user_pwd) is str):
             return None
         # since search is a class method. search requires a dictionary
-        cls_obj = User.search({'email': user_email})
+        try:
+            cls_obj = User.search({'email': user_email})
+        except Exception:
+            return None
         # if cls_obj with the user_email exists, a list will be returned
         # Thus, select the instance returned in the list
         if (cls_obj and cls_obj[0].is_valid_password(user_pwd)):
