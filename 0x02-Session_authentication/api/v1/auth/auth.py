@@ -3,7 +3,7 @@
 
 from flask import request
 from typing import List, TypeVar
-# import os
+import os
 
 
 class Auth:
@@ -57,15 +57,14 @@ class Auth:
         """
         return None
 
-    def session_cookie(self, request=None):
-        """ returns a cookie value from a request
+    # def session_cookie(self, request=None):
+    #     """ returns a cookie value from a request
 
-        Args:
-            request (request, optional): Flask request object.
-            Defaults to None.
-        """
-        if not request:
-            return None
-        # _my_session_id = os.getenv('SESSION_NAME')
-        # cookies = request.cookies.get(_my_session_id)
-        # return cookies
+    #     Args:
+    #         request (request, optional): Flask request object. Defaults to None.
+    #     """
+    #     if not request:
+    #         return None
+    #     _my_session_id = os.getenv('SESSION_NAME')
+    #     cookies = request.cookies.get(_my_session_id)
+    #     return cookies
