@@ -43,6 +43,7 @@ def before_request():
             if request.current_user is None:
                 abort(403)
 
+
 @app.errorhandler(404)
 def not_found(error) -> str:
     """ Not found handler
