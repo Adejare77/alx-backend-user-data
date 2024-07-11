@@ -35,8 +35,6 @@ class SessionAuth(Auth):
         Args:
             request: Flask object. Defaults to None.
         """
-        # if not None:
-        #     return None
         user_session_id = self.session_cookie(request)
         user_id = self.user_id_for_session_id(user_session_id)
         user = User.get(user_id)
