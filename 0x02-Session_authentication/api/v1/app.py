@@ -28,7 +28,7 @@ def before_request():
     Basic Authentication: True
     Session Authentication: False
     """
-    request.current_user = None
+    # request.current_user = None
     if auth:
         path_list = ['/api/v1/status/', '/api/v1/unauthorized/',
                      '/api/v1/forbidden/']
