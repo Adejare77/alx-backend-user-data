@@ -20,6 +20,9 @@ if os.getenv('AUTH_TYPE'):
     elif os.getenv('AUTH_TYPE') == 'auth':
         from api.v1.auth.auth import Auth
         auth = Auth()
+    elif os.getenv('AUTH_TYPE') == 'session_auth':
+        from api.v1.auth.session_auth import SessionAuth
+        auth = SessionAuth()
 
 
 @app.before_request
@@ -28,7 +31,7 @@ def before_request():
     Basic Authentication: True
     Session Authentication: False
     """
-    # request.current_user = None
+    request.current_user = None
     if auth:
         path_list = ['/api/v1/status/', '/api/v1/unauthorized/',
                      '/api/v1/forbidden/']
