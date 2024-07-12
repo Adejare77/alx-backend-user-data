@@ -9,5 +9,5 @@ class UserSession(Base):
     """
     def __init__(self, *args: list, **kwargs: dict):
         super(UserSession, self).__init__(*args, **kwargs)
-        self.user = kwargs.get('user_id')
+        self.user_id = kwargs.get('user_id')
         self.session_id = kwargs.get('session_id')
