@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """ Authenticate and Stores UserSession IDs in Database """
 
-from  api.v1.auth.session_exp_auth import SessionExpAuth
+from api.v1.auth.session_exp_auth import SessionExpAuth
+
 
 class SessionDBAuth(SessionExpAuth):
     """ Authenticate Session IDs in Database """
