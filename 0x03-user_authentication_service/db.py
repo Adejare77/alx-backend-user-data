@@ -54,9 +54,9 @@ class DB():
 
         return find_first_user
 
-    def update_user(self, user_id: int, **kwargs: dict):
+    def update_user(self, user_id: int, **kwargs: dict) -> None:
         """ update an existing user """
-        user = self.find_user_by(user_id)
+        user = self.find_user_by(id=user_id)
         for key, value in kwargs.items():
             if key in user.__dict__:
                 setattr(user, key, value)
