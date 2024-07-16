@@ -2,13 +2,13 @@
 """ User Authentication Service """
 
 from sqlalchemy import Integer, String, Column
-from sqlalchemy.orm import declarative_base
+from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
 
 
 class User(Base):
-    """ User model. Servers as the Base Model """
+    """ User model """
     __tablename__ = "users"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
