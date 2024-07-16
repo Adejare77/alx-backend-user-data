@@ -67,3 +67,13 @@ class Auth:
         setattr(user, 'session_id', session_id)
         self._db._session.commit()
         return session_id
+
+    def get_user_from_session(self, session_id: str) -> User:
+        """ find user by session ID """
+        if not session_id:
+            return None
+        try:
+            user_id = self._db.find_user_by(session_id=session_id)
+            return user_id.id
+        except NoResultFound:
+            return None
