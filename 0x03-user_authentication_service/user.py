@@ -8,7 +8,7 @@ Base = declarative_base()
 
 
 class User(Base):
-    """ User model """
+    """ User model. Servers as the Base Model """
     __tablename__ = "users"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
