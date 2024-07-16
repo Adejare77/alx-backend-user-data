@@ -26,7 +26,11 @@ class Auth:
 
     def register_user(self, email: str, password: str) -> User:
         """ return a new user if not exists else raise error """
-        all_users = self._db._session.query(User).all()
+        try:
+            all_users = self._db._session.query(User).all()
+        except InvalidRequestError:
+            raise InvalidRequestError
+
         for user in all_users:
             if email in user.email:
                 raise ValueError(f"User {email} already exists")
