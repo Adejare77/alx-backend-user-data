@@ -56,12 +56,13 @@ class DB():
 
     def update_user(self, user_id: int, **kwargs: dict) -> None:
         """ update an existing user """
+        if user_id is None or type(user_id) != int:
+            return None
         try:
             user = self.find_user_by(id=user_id)
         except NoResultFound:
             return None
-        except InvalidRequestError:
-            raise InvalidRequestError
+
         for key, value in kwargs.items():
             if key in user.__dict__:
                 setattr(user, key, value)
