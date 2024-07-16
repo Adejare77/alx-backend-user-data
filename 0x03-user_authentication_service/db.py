@@ -58,5 +58,6 @@ class DB():
         """ update an existing user """
         user = self.find_user_by(user_id)
         for key, value in kwargs.items():
-            setattr(user, key, value)
+            if key in user.__dict__:
+                setattr(user, key, value)
         self._session.commit()
