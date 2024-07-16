@@ -49,8 +49,9 @@ def logout():
     """ Log out """
     session_id = request.form.get('session_id')
     user = AUTH.get_user_from_session_id(session_id)
-    if user:
-        AUTH.destroy_session(user.id)
+    if not user:
+        abort(403)
+    AUTH.destroy_session(user.id)
     return redirect(url_for('index'))
 
 
