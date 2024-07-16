@@ -66,7 +66,7 @@ def profile():
     abort(403)
 
 
-@app.route('/reset_password', methods=['POST'])
+@app.route('/reset_password', methods=['POST'], strict_slashes=False)
 def reset_pwd():
     """ get reset password token """
     email = request.form.get('email')
@@ -77,7 +77,7 @@ def reset_pwd():
         abort(403)
 
 
-@app.route('/reset_password', methods=['PUT'])
+@app.route('/reset_password', methods=['PUT'], strict_slashes=False)
 def new_pwd():
     """ updated user's password """
     email = request.form.get('email')
