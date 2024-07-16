@@ -3,7 +3,6 @@
 
 import bcrypt
 import uuid
-from sqlalchemy.exc import InvalidRequestError
 from sqlalchemy.orm.exc import NoResultFound
 from db import DB
 from user import User
@@ -93,8 +92,8 @@ class Auth:
         """ generate reset password token """
         try:
             user = self._db.find_user_by(email=email)
-            reset_uuid = str(uuid.uuid4())
-            setattr(user, 'reset_token', reset_uuid)
-            return reset_uuid
+            reset_token = str(uuid.uuid4())
+            setattr(user, 'reset_token', reset_token)
+            return reset_token
         except NoResultFound:
             raise ValueError
