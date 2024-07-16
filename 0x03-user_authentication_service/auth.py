@@ -3,6 +3,7 @@
 
 import bcrypt
 import uuid
+from sqlalchemy.exc import InvalidRequestError
 from sqlalchemy.orm.exc import NoResultFound
 from db import DB
 from user import User
@@ -97,3 +98,12 @@ class Auth:
             return reset_token
         except NoResultFound:
             raise ValueError
+
+    def update_password(self, reset_token: str, password: str) -> None:
+        """ update a user's password """
+        try:
+            user = self._db.find_user_by(reset_token=reset_token)
+        except NoResultFound:
+            raise ValueError
+        new_passwd = _hash_password(password)
+        self._db.update_user(user.id, new_passwd)
