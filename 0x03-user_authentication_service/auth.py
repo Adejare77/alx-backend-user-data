@@ -77,3 +77,14 @@ class Auth:
             return user
         except NoResultFound:
             return None
+
+    def destroy_session(self, user_id: str) -> None:
+        """ Destroy session """
+        if not user_id:
+            return None
+        try:
+            user = self._db.find_user_by(id=user_id)
+            setattr(user, 'session_id', None)
+
+        except NoResultFound:
+            return NoResultFound
