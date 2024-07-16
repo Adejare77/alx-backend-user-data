@@ -56,10 +56,7 @@ class DB():
 
     def update_user(self, user_id: int, **kwargs: dict) -> None:
         """ update an existing user """
-        try:
-            user = self.find_user_by(id=user_id)
-        except NoResultFound:
-            raise NoResultFound
+        user = self.find_user_by(id=user_id)
         for key, value in kwargs.items():
             if key in user.__dict__:
                 setattr(user, key, value)
