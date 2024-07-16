@@ -18,6 +18,12 @@ def _hash_password(password: str) -> bytes:
     return hashed_password
 
 
+def _generate_uuid() -> str:
+    """ generate UUIDs """
+    unique_id = str(uuid.uuid4())
+    return unique_id
+
+
 class Auth:
     """Auth class to interact with the authentication database.
     """
@@ -27,14 +33,9 @@ class Auth:
 
     def register_user(self, email: str, password: str) -> User:
         """ register a user """
-        try:
-            all_users = self._db._session.query(User).all()
-        except InvalidRequestError:
-            raise InvalidRequestError
-
-        for user in all_users:
-            if email in user.email:
-                raise ValueError(f"User {email} already exists")
+        existing_user = self._db.find_user_by(email=email)
+        if existing_user:
+            raise ValueError(f"User {email} already exists")
 
         pwd = _hash_password(password)
         return self._db.add_user(email, pwd)
@@ -43,14 +44,10 @@ class Auth:
         """ credentials validation """
         if not (email and password):
             return False
-        user = self._db._session.query(User).filter_by(email=email).first()
-        if not user:
+        try:
+            user = self._db.find_user_by(email=email)
+        except NoResultFound:
             return False
-        if bcrypt.checkpw(password.encode(), user.hashed_password):
-            return True
-        return False
 
-    def _generate_uuid(self) -> str:
-        """ generate UUIDs """
-        unique_id = str(uuid.uuid4())
-        return unique_id
+        pwd = password.encode()
+        return bcrypt.checkpw(pwd, user.hashed_password)
