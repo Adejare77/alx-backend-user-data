@@ -60,6 +60,8 @@ class DB():
             user = self.find_user_by(id=user_id)
         except NoResultFound:
             return None
+        except InvalidRequestError:
+            raise InvalidRequestError
         for key, value in kwargs.items():
             if key in user.__dict__:
                 setattr(user, key, value)
