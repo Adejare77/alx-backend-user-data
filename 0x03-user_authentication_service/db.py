@@ -60,6 +60,6 @@ class DB():
         if not user:
             raise NoResultFound
         for key, value in kwargs.items():
-            if key in user.__dict__:
+            if hasattr(user, key):
                 setattr(user, key, value)
         self._session.commit()
