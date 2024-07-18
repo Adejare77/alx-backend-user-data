@@ -66,7 +66,7 @@ class DB():
         for key, value in kwargs.items():
             if key in user.__dict__:
                 setattr(user, key, value)
+                self._session.commit()
             else:
                 raise ValueError
-        self._session.commit()
         return None
