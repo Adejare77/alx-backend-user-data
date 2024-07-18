@@ -39,8 +39,7 @@ class Auth:
             pwd = _hash_password(password)
             return self._db.add_user(email, pwd)
 
-        if existing_user:
-            raise ValueError(f"User {email} already exists")
+        raise ValueError(f"User {email} already exists")
 
     def valid_login(self, email: str, password: str) -> bool:
         """ credentials validation """
