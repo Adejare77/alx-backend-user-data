@@ -51,7 +51,9 @@ class Auth:
             return False
 
         pwd = password.encode()
-        return bcrypt.checkpw(pwd, user.hashed_password)
+        if bcrypt.checkpw(pwd, user.hashed_password):
+            return True
+        return False
 
     def create_session(self, email: str) -> str:
         """ Get session ID """
